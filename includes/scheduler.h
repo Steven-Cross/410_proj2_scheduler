@@ -10,6 +10,7 @@
 #ifndef SCHEDULER_H_
 #define SCHEDULER_H_
 #include <queue>
+#include <algorithm>
 #include "constants.h"
 #include "PCB.h"
 
