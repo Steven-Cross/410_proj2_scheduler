@@ -23,8 +23,15 @@ bool sortHelper(PCB &first, PCB &second){
 
 
 bool Scheduler_SRTF::time_to_switch_processes(int tick_count, PCB &p){
-	Scheduler_SRTF::sort();
-	return Scheduler::time_to_switch_processes(tick_count, p);
+	sort();
+	if (p.remaining_cpu_time <= 0){
+		return true;
+	}
+
+	if (p.remaining_cpu_time > ready_q->front().remaining_cpu_time) {
+		return true;
+	}
+	return false;
 }
 
 // Sorts ready_q by remaining CPU time

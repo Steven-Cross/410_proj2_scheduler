@@ -12,7 +12,19 @@
 
 // uses parent function to see if its time to switch processes
 bool Scheduler_RR::time_to_switch_processes(int tick_count, PCB &p){
-	return Scheduler::time_to_switch_processes(tick_count, p);
+	static int timeLeft = time_slice - 1;
+	if (p.remaining_cpu_time <= 0){
+		return true;
+	}
+	if (preemptive){
+		if (timeLeft == 0){
+			timeLeft = time_slice - 1;
+			return true;
+		}
+		timeLeft--;
+	}
+
+	return false;
 }
 
 // No sorting needed for RR algorithm
